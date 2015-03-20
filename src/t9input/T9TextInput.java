@@ -1,18 +1,29 @@
 package t9input;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * T9 style input
+ * @author wei
+ *
+ */
+
 public class T9TextInput {
   public static Map<Character, Integer> t9Map;
   private List<String> wordList;
   private Trie t9Trie;
+  
   public T9TextInput(){
+	  //initialise T9 character map
 	  t9Map = new HashMap<Character, Integer>();
 	  t9Map.put('a', 2);
 	  t9Map.put('b', 2);
@@ -56,6 +67,10 @@ public class T9TextInput {
 	  return buf.toString();
   }
   
+  /**
+   * build T9 trie from file (a sorted unigram file)
+   * @param fileName
+   */
   public void buildModel(String fileName) {
 		Scanner sc;
 		try {
@@ -89,13 +104,24 @@ public class T9TextInput {
   public static void main(String[] args){
 	  T9TextInput textInput = new T9TextInput();
 	  textInput.buildModel("data/unigram.txt");
-	  String testInput = "23777";
-	  List<String> list = textInput.getWordList(testInput, 5);
-	  for(String r: list){
-		  System.out.print(r+";");
-	  }
-	  System.out.println();
+	  try {
+		  BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		  
+		  while(true){
+			  System.out.print("Please enter T9 input: ");
+			  String input = reader.readLine();
+			  List<String> list = textInput.getWordList(input, 5);
+			  if (list.size()==0){
+				  System.out.println("No Suggestions");
+			  }else{
+				  for(String r: list){
+					  System.out.print(r+";");
+				  }
+				  System.out.println();
+			  }
+		  }//while
+	  } catch (IOException e) {
+		  e.printStackTrace();
+	  	}
   }
-  
-  
 }

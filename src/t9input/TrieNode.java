@@ -5,6 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A simple object representing a trie node
+ * @author wei
+ *
+ */
 public class TrieNode {
 	private Character key;
 	private Map<Character, TrieNode> childrenMap;
@@ -23,6 +28,7 @@ public class TrieNode {
 	public void addValue(Integer v){
 		this.idList.add(v);
 	}
+	
 	public List<Integer> getValues(){
 		return this.idList;
 	}
