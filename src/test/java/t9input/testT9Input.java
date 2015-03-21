@@ -16,7 +16,7 @@ public class testT9Input {
 	public void setUp() throws Exception {
 		textInput = new T9TextInput();
 		String path = this.getClass().getResource("/unigram.txt").getPath();
-		textInput.buildModel(path);
+		textInput.buildTrie(path);
 	}
 
 	@Test

@@ -2,8 +2,6 @@ package t9input;
 
 import java.util.ArrayList;
 import java.util.Collections;
-//import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -16,15 +14,22 @@ public class Trie {
 		root = new TrieNode(' ');
 	}
 	
+	/**
+	 * insert a word in its T9 numeral (e.g. "234") and the wID to this trie 
+	 * @param key T9 numeral input of a word
+	 * @param wID the integer id of this word
+	 */
 	public void insert(String key, Integer wID){
 		TrieNode n = root;
 		for(char c : key.toCharArray()){
 			Map<Character, TrieNode> childrenMap = n.getChildren();
+			//no such children, create a new node and add it as a child of the current node
 			if (!childrenMap.containsKey(c)){
 				TrieNode cNode = new TrieNode(c);
 				childrenMap.put(c, cNode);
 				n = cNode;
 			}else{
+				//advance to the child node with the same key
 				n = childrenMap.get(c);
 			}
 		}
@@ -32,18 +37,21 @@ public class Trie {
 	}
 	
 	/**
+	 * Recursively append values of all children node. Append closer (shorter)
+	 * values first (Breadth-first search)
 	 * we are using a Map for a node's possible children, this means
 	 * when getting all children nodes the order is not guaranteed
 	 * @param n
 	 * @param resultList
 	 */
-	public void getChildrenValues(TrieNode n, List<Integer> resultList){
+	private void getChildrenValues(TrieNode n, List<Integer> resultList){
 		Map<Character, TrieNode> childrenMap = n.getChildren();
 		if (!childrenMap.isEmpty()){
 			List<TrieNode> l = new ArrayList<TrieNode>(childrenMap.values());
 			for(TrieNode nd : l){
-				//add shorter words first, sort by descending probability (frequency)
+				//add all children on this level
 				resultList.addAll(nd.getValues());
+				//sort the value, which is an integer word ID
 				Collections.sort(resultList);
 				getChildrenValues(nd, resultList);
 			}
@@ -78,7 +86,6 @@ public class Trie {
 		
 		//insert exact matches to the head of list
 		resultList.addAll(0,n.getValues());
-		//Collections.sort(resultList);
 		if (resultList.size() < nResults){
 			return resultList;
 		}else

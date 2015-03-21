@@ -59,6 +59,7 @@ public class T9TextInput {
   public String getT9Encoding(String word) {
 	  StringBuffer buf = new StringBuffer();
 	  for(char c: word.toCharArray()){
+		  //case insensitive
 		  char lc = Character.toLowerCase(c);
 		  if(t9Map.containsKey(lc)){
 			  buf.append(t9Map.get(lc));
@@ -71,7 +72,7 @@ public class T9TextInput {
    * build T9 trie from file (a sorted unigram file)
    * @param fileName
    */
-  public void buildModel(String fileName) {
+  public void buildTrie(String fileName) {
 		Scanner sc;
 		try {
 			sc = new Scanner(new File(fileName));
@@ -103,7 +104,7 @@ public class T9TextInput {
   
   public static void main(String[] args){
 	  T9TextInput textInput = new T9TextInput();
-	  textInput.buildModel("data/unigram.txt");
+	  textInput.buildTrie("src/test/resources/unigram.txt");
 	  try {
 		  BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		  
