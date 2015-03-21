@@ -1,8 +1,7 @@
 package t9input;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +14,6 @@ public class testT9Input {
 	@Before
 	public void setUp() throws Exception {
 		textInput = new T9TextInput();
-		//System.out.println(this.getClass().getResource("/").getPath());
 		String path = this.getClass().getResource("/unigram.txt").getPath();
 		textInput.buildModel(path);
 	}

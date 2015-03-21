@@ -1,9 +1,8 @@
 package t9input;
 
 import java.util.Collections;
-//import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -62,7 +61,7 @@ public class Trie {
 	 * @return
 	 */
 	public List<Integer> getResults(String input, int nResults){
-		List<Integer> resultList = new LinkedList<Integer>();
+		List<Integer> resultList = new ArrayList<Integer>();
 		TrieNode n = root;
 		for (Character c : input.toCharArray()){
 			Map<Character, TrieNode> childrenMap = n.getChildren();
@@ -71,10 +70,7 @@ public class Trie {
 			}else{
 				n = childrenMap.get(c);
 			}
-		}
-		//append exact matches first
-		//resultList.addAll(n.getValues());
-		
+		}	
 		//get all n's children values (prefix matches)
 		getChildrenValues(n, resultList);
 		Collections.sort(resultList);
