@@ -1,7 +1,7 @@
 package t9input;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +18,7 @@ public class TrieNode {
 	public TrieNode(Character key){
 		this.key = key;
 		this.childrenMap = new HashMap<Character, TrieNode>();
-		idList = new LinkedList<Integer>();
+		idList = new ArrayList<Integer>();
 	}
 	
 	public Character getKey() {
