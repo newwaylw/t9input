@@ -24,7 +24,7 @@ public class T9InputTest {
 		int nResults = 5;
 		String input = "6837";
 		List<String> result = textInput.getWordList(input, nResults);
-		List<String> expected = Arrays.asList("over","mud's","overlying","overcome","overcoat");
+		List<String> expected = Arrays.asList("over","mud's","overfat","overfed","overeager");
 		assertEquals(result,expected);
 		
 		input = "86";

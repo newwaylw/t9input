@@ -44,16 +44,20 @@ public class Trie {
 	 * @param n
 	 * @param resultList
 	 */
-	private void getChildrenValues(TrieNode n, List<Integer> resultList){
+	private void getChildrenValues(TrieNode n, List<Integer> resultList, int nResults){
 		Map<Character, TrieNode> childrenMap = n.getChildren();
 		if (!childrenMap.isEmpty()){
 			List<TrieNode> l = new ArrayList<TrieNode>(childrenMap.values());
 			for(TrieNode nd : l){
 				//add all children on this level
 				resultList.addAll(nd.getValues());
+				
+				//stop when result reached, no need to go further
+				if (resultList.size() >= nResults)
+					return ;
 				//sort the value, which is an integer word ID
 				Collections.sort(resultList);
-				getChildrenValues(nd, resultList);
+				getChildrenValues(nd, resultList, nResults);
 			}
 		}
 	}
@@ -81,8 +85,14 @@ public class Trie {
 				n = childrenMap.get(c);
 			}
 		}
+		
+		//if the number of exact matches already exceeds the request result
+		//return directly.
+		if (n.getValues().size()>=nResults)
+			return n.getValues().subList(0, nResults);
+		
 		//get all n's children values (prefix matches)
-		getChildrenValues(n, resultList);
+		getChildrenValues(n, resultList, nResults);
 		
 		//insert exact matches to the head of list
 		resultList.addAll(0,n.getValues());
