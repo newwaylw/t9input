@@ -9,7 +9,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class testT9Input {
+public class T9InputTest {
 	private T9TextInput textInput;
 	
 	@Before
@@ -20,7 +20,7 @@ public class testT9Input {
 	}
 
 	@Test
-	public void test() {
+	public void testT9() {
 		int nResults = 5;
 		String input = "6837";
 		List<String> result = textInput.getWordList(input, nResults);
