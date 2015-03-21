@@ -71,7 +71,7 @@ public class T9TextInput {
    * build T9 trie from file (a sorted unigram file)
    * @param fileName
    */
-  public void buildModel(String fileName) {
+  public void buildTrie(String fileName) {
 		Scanner sc;
 		try {
 			sc = new Scanner(new File(fileName));
@@ -103,7 +103,8 @@ public class T9TextInput {
   
   public static void main(String[] args){
 	  T9TextInput textInput = new T9TextInput();
-	  textInput.buildModel("data/unigram.txt");
+	  textInput.buildTrie("src/test/resources/unigram.txt");
+
 	  try {
 		  BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		  
